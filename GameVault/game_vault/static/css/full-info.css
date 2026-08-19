@@ -1,0 +1,362 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.main-title{
+    width: 100%;
+}
+
+.main-title h1{
+    font-size: 80px;
+}
+
+.main-title p{
+    margin-top: 20px;
+    font-size: 20px;
+    width: 70%;
+}
+
+.main-info p{
+    width: 70%;
+}
+
+@keyframes smooth-light-move {
+    from {
+        background-position: 0% center, center;
+    }
+    to {
+        background-position: 100% center, center; 
+    }
+}
+
+
+.scroll-bar::-webkit-scrollbar, .last-cards::-webkit-scrollbar, .comments::-webkit-scrollbar, .game-detail p::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+
+.scroll-bar::-webkit-scrollbar-track, .last-cards::-webkit-scrollbar-track, .comments::-webkit-scrollbar-track, .game-detail p::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+
+.scroll-bar::-webkit-scrollbar-thumb, .last-cards::-webkit-scrollbar-thumb, .comments::-webkit-scrollbar-thumb, .game-detail p::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb:hover, .last-cards::-webkit-scrollbar-thumb:hover, .comments::-webkit-scrollbar-thumb:hover, .game-detail p::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+
+.full-info{
+    background-color: rgba(0, 0, 0, 0.382);
+    backdrop-filter: blur(2px);
+}
+
+.full-info .container{
+    border: 2px solid rgba(77, 77, 77, 0.297);
+    border-radius: 40px;
+    display: flex;
+    backdrop-filter: blur(10px);
+    background-color: rgba(49, 49, 49, 0.105);
+    padding: 70px;
+    gap: 40px;
+}
+
+.flex-left{
+    width: 60%;
+}
+
+.flex-right{
+    width: 40%;
+}
+
+.full-desc, .commentaries, .last-cards .card{
+    width: 100%;
+    border: 2px solid rgba(193, 193, 193, 0.581);
+    border-radius: 40px;
+}
+
+.full-desc{
+    height: 385px;
+}
+
+.game-details{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.game-detail{
+    min-height: 330px;
+    width: 50%;
+    border: 2px solid rgba(193, 193, 193, 0.581);
+    border-radius: 40px;
+}
+
+.game-detail p{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    overflow: auto;
+}
+
+.game_images{
+    background-color: rgba(0, 0, 0, 0.382);
+    backdrop-filter: blur(2px);
+}
+
+.game-trailer{
+    background-color: rgba(0, 0, 0, 0.382);
+    backdrop-filter: blur(2px);
+}
+
+.trailer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+.trailer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-bar {
+    height: 220px;
+    overflow-y: auto;
+}
+
+.last-cards{
+    height: 650px;
+    /* overflow-y: auto; */
+}
+
+.last-cards .card, .last-cards .card-body{
+    border-radius: 20px;
+}
+
+.last-cards .card{
+    margin-bottom: 20px;
+}
+
+.last-cards .card-body{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.image-card, .image-card img{
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+
+
+
+/* Comments */
+
+
+.comments{
+    overflow-y: auto;
+    height: 160px;
+}
+
+.comment {
+    display: flex;
+    gap: 15px;
+    border: 1px solid rgba(193, 193, 193, 0.21);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.comment-center {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.comment-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    flex-shrink: 0;
+}
+
+.comment-left {
+    flex-shrink: 0;
+}
+
+.comment-left img {
+    object-fit: cover;
+    border-radius: 50px;
+}
+
+.comment-textarea, .comment-textarea:focus{
+    background-color: rgba(0, 0, 0, 0.382);
+    backdrop-filter: blur(2px);
+}
+
+.comment-body{
+    border: 1px solid rgba(193, 193, 193, 0.21);
+    border-top: none;
+}
+
+
+
+
+
+
+
+/* Media Responsive */
+
+
+@media (max-width: 1024px) {
+    .main-title h1 {
+        font-size: 60px;
+    }
+
+    .main-title p, .main-info p {
+        width: 90%;
+    }
+
+    .full-info .container {
+        padding: 40px;
+        gap: 30px;
+    }
+
+    .swiper-slide {
+        width: 500px;
+        height: 300px;
+    }
+
+    .swiper-slide img {
+        height: 300px;
+    }
+
+    .full-info .container {
+        padding: 50px;
+        gap: 30px;
+        flex-direction: column;
+    }
+
+    .flex-left, .flex-right {
+        width: 100%;
+    }
+
+    .game-details {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .game-detail {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .full-desc {
+        height: auto;
+    }
+
+    .last-cards {
+        height: auto;
+    }
+
+    .scroll-bar {
+        height: 180px;
+    }
+
+    .comments {
+        height: 140px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .main-title {
+        padding-top: 100px;
+    }
+
+    .main-title h1 {
+        font-size: 45px;
+    }
+
+    .main-title p, .main-info p {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .full-info .container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .flex-left, .flex-right {
+        width: 100%;
+    }
+
+    .full-desc, .game-detail, .commentaries {
+        padding: 20px;
+    }
+
+    .game-details {
+        flex-direction: column;
+    }
+
+    .game-detail {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .last-cards {
+        height: auto;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        height: 250px;
+    }
+
+    .swiper-slide img {
+        height: 250px;
+    }
+
+    .comment {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comment-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .action-btns {
+        align-self: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .main-title h1 {
+        font-size: 35px;
+    }
+}

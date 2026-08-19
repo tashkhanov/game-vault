@@ -1,0 +1,619 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.message, .message-container{
+    margin-top: 100px;
+}
+
+body{
+    background-color: #0e0e11;
+    background-image: radial-gradient(circle at center, transparent 15%, rgba(0,0,0,0.8) 50%), url(../images/main-bg.png);
+    background-repeat: no-repeat;
+    background-position-y: top !important;
+    background-attachment: fixed;
+    background-size: 200% 100%, cover;
+    animation: smooth-light-move 8s infinite alternate ease-in-out;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.dropdown-item:hover{
+    background-color: black !important;
+}
+
+.dropdown ul li{
+    list-style: none;
+}
+
+.search input, .search button, .login-btn a{
+    border-radius: 100px;
+}
+
+.navbar{
+    height: 80px;
+    background-color:rgba(0, 0, 0, 0.114) !important;
+    position: fixed;
+    top: 0;
+    width: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    border-radius: 0 0 40px 40px;
+    border: 2px solid rgba(77, 77, 77, 0.297);
+    border-top: none;
+}
+
+.modal{
+    backdrop-filter: blur(5px);
+}
+
+.modal-body form input, .modal-body form input:focus{
+    background-color:rgba(0, 0, 0, 0.578);
+}
+
+.modal-body form input::placeholder{
+    color: gray;
+}
+
+.modal-blured{
+    background-color: rgba(14, 14, 17, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal-blured input{
+    background-color: transparent !important;
+}
+
+.btn-close{
+    color: white !important;
+    background-color: white;
+}
+
+.footer-modal{
+    border-top: 1px solid rgb(223, 223, 223);
+    padding: 20px 0 5px 20px;
+}
+
+
+.game-cards-search input, .mods-search input, .game-cards-search input:focus, .mods-search input:focus, .game-cards-search .btn, .mods-search .btn{
+    backdrop-filter: blur(8px);
+    background-color: rgba(14, 14, 17, 0.105);
+}
+
+.navbar .search .form-control {
+    background-color: transparent !important;
+    border: 2px solid rgba(77, 77, 77, 0.297);
+    color: white !important;
+}
+.navbar .search .btn{
+    background-color: transparent !important;
+    border: 2px solid rgba(77, 77, 77, 0.297);
+}
+
+.drop-btn{
+    border: 2px solid rgba(255, 255, 255, 0.350);
+    border-radius: 40px;
+}
+
+.navbar-toggler{
+    background-color: white;
+}
+
+.search .form-control::placeholder, .game-cards-search .form-control::placeholder, .mods-search .form-control::placeholder{
+    color: gray;
+}
+
+.search .form-control{
+    color: white;
+}
+
+@keyframes smooth-light-move {
+    from {
+        background-position: 0% center, center;
+    }
+    to {
+        background-position: 100% center, center; 
+    }
+}
+
+.main-content .container{
+    width: 100%;
+    height: 70%;
+}
+
+.main-bg{
+    padding-top: 200px;
+}
+
+.main-content .container h1{
+    font-size: 60px;
+    width: 50%;
+    line-height: 90px;
+}
+
+.main-cards .card img, .game-cards .card img, .news-cards .card img{
+    height: 250px;
+    object-fit: cover;
+}
+
+.game-cards, .news-cards{
+    margin-top: 80px;
+}
+
+.main-cards .card, .game-cards .card, .news-cards .card{
+    transition: 0.1s;
+}
+
+.main-cards .card:hover, .game-cards .card:hover, .news-cards .card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px rgba(100, 150, 255, 0.2);
+}
+
+.card{
+    border: 2px solid rgba(77, 77, 77, 0.297);
+}
+
+.main-content .main-cards{
+    margin-top: 270px;
+}
+
+section.news{
+    margin-top: 100px;
+}
+
+.card-body, .card{
+    backdrop-filter: blur(8px);
+    background-color: rgba(14, 14, 17, 0.105);
+}
+
+
+/* Main Categories */
+
+.category-card {
+    position: relative;
+    height: 300px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgb(37, 37, 37);
+}
+
+.category-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    /* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5); */
+}
+
+.category-card a{
+    background-color: rgba(0, 0, 0, 0.395);
+    backdrop-filter: blur(1px);
+}
+
+.category-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 50%);
+    text-shadow: 2px 2px 10px black;
+}
+
+
+
+
+/* Games */
+
+section.games-main, section.news-main{
+    margin-top: 100px;
+}
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 500px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.main-title .btn{
+    transition: 0.2s;
+}
+
+.main-title .btn:hover, .game-cards-search .btn:hover, .mods-search .btn:hover{
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.045);
+}
+
+.game_genres{
+    overflow-y: auto;
+    height: 340px;
+}
+
+.game_genres::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+
+.game_genres::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+
+.game_genres::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.game_genres::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+
+/* News */
+
+.news-slide-content, .games-slide-content{
+    position: relative;
+}
+
+.news-slide-text, .games-slide-text{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.821), rgba(0,0,0,0));
+    display: flex;
+    align-items: flex-end;
+}
+
+.news-slide-text img, .games-slide-text img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.full-desc form textarea{
+    border-color: rgba(193, 193, 193, 0.581);
+    background-color: transparent;
+    color: white;
+    border-radius: 10px;
+}
+
+.full-desc form textarea:focus{
+    background-color: transparent;
+}
+
+.full-desc form textarea::placeholder{
+    color: gray;
+}
+
+.full-desc form button{
+    width: 100%;
+    border-radius: 10px;
+    transition: 0.2s;
+    border-color: rgba(193, 193, 193, 0.581) !important;
+    padding: 10px 0;
+}
+
+.full-desc form button:hover{
+    background-color: rgba(255, 255, 255, 0.045);
+    ;
+}
+
+
+/* Mods */
+
+.mods-main th, .mods-main td{
+    background: transparent !important;
+}
+
+.mods-main h1{
+    margin: 150px 0 50px 0;
+    font-size: 60px;
+}
+
+.mods-main .table tbody tr{
+    transition: 0.2s;
+}
+
+.mods-main .table tbody tr:hover{
+    backdrop-filter: blur(5px);
+    background-color: rgba(14, 14, 17, 0.105);
+} 
+
+.mods-main .table .btn {
+    background-color: transparent;
+}
+
+
+
+/* Footer */
+
+.footer{
+    backdrop-filter: blur(5px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.114) !important;
+    backdrop-filter: blur(5px);
+    border-top: 2px solid rgba(77, 77, 77, 0.297);
+}
+
+
+/* Scroll to top button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid rgb(149, 149, 149);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    line-height: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Media Responsive */
+
+@media (max-width: 1024px) {
+    .main-content .container h1 {
+        font-size: 50px;
+        width: 70%;
+        line-height: 70px;
+    }
+
+    .main-cards .card img, .game-cards .card img, .news-cards .card img {
+        height: 200px;
+    }
+
+    .category-card {
+        height: 250px;
+    }
+
+    .swiper-slide {
+        height: 300px !important;
+    }
+
+    .swiper-slide img {
+        height: 300px !important;
+    }
+
+    .mods-main h1 {
+        font-size: 50px;
+        margin: 120px 0 40px 0;
+    }
+
+    .main-bg {
+        padding-top: 150px;
+    }
+
+    .main-content .main-cards {
+        margin-top: 200px;
+    }
+
+    .game-cards, .news-cards {
+        margin-top: 60px;
+    }
+
+    section.news {
+        margin-top: 80px;
+    }
+
+    section.games-main, section.news-main {
+        margin-top: 80px;
+    }
+
+    
+}
+
+
+@media (min-width: 768px) and (max-width: 990px){
+    .navbar-collapse {
+        background-color: rgba(14, 14, 17, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 150px;
+    }
+
+    .main-genres{
+        gap: 20px;
+    }
+
+    .navbar {
+        height: 60px;
+        width: 100%;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .main-content .container h1 {
+        font-size: 40px;
+        width: 100%;
+        line-height: 50px;
+    }
+
+    .main-cards .card img, .game-cards .card img, .news-cards .card img {
+        height: 250px;
+    }
+
+    .category-card {
+        height: 200px;
+    }
+
+    .category-link {
+        font-size: 1.2rem;
+    }
+
+    .swiper-slide {
+        width: 80% !important;
+        height: 300px !important;
+    }
+
+    .swiper-slide img {
+        height: 300px !important;
+    }
+
+    .game_genres {
+        height: auto;
+        overflow-y: visible;
+    }
+
+    .mods-main h1 {
+        font-size: 40px;
+        margin: 100px 0 30px 0;
+    }
+
+    .main-bg {
+        padding-top: 100px;
+    }
+
+    .main-content .main-cards {
+        margin-top: 150px;
+    }
+
+    .game-cards, .news-cards {
+        margin-top: 40px;
+    }
+
+    section.news {
+        margin-top: 60px;
+    }
+
+    section.games-main, section.news-main {
+        margin-top: 60px;
+    }
+
+    .full-desc form button {
+        padding: 8px 0;
+    }
+
+    .scroll-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        bottom: 80px;
+    }
+
+    .main-cards .col, .game-cards .col, .news-cards .col {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .navbar-collapse {
+        background-color: rgba(14, 14, 17, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .navbar-collapse .login-btn {
+        margin-left: 0 !important; 
+        width: 100%; 
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .main-content .container h1 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .main-cards .card img, .game-cards .card img, .news-cards .card img {
+        height: 120px;
+    }
+
+    .category-card {
+        height: 150px;
+    }
+
+    .category-link {
+        font-size: 1rem;
+    }
+
+    .swiper-slide {
+        height: 150px;
+    }
+
+    .swiper-slide img {
+        height: 150px;
+    }
+
+    .mods-main h1 {
+        font-size: 30px;
+        margin: 80px 0 20px 0;
+    }
+
+    .navbar {
+        height: 50px;
+    }
+
+    .scroll-to-top {
+        bottom: 100px;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+        line-height: 35px;
+    }
+}

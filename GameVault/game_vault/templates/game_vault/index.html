@@ -1,0 +1,86 @@
+{% load static %}
+{% include 'game_vault/components/_header.html' %}
+
+{% if messages %}
+  <div class="container message-container text-light">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} fade show message text-light d-flex align-items-center" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+    <section class="main">
+
+        <div class="main-content">
+            <div class="container main-bg">
+                <h1 class="text-light">Добро пожаловать в GameVault</h1>
+            </div>
+
+            <div class="container main-cards">
+                <h2 class="text-light mb-3">Последние игры</h2>
+                {% if last_games %}
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for game in last_games|slice:":6" %}
+                    <div class="col">
+                        <a href="{{ game.get_absolute_url }}" class="card-link text-white text-decoration-none">
+                            <div class="card text-light" data-aos="fade-right" data-aos-duration="700">
+                                <img src="{{ game.image.url }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ game.title }}</h5>
+                                        <p class="card-text">{{ game.short_description|truncatechars:50 }}</p>
+                                    </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+                {% else %}
+                <h5 class="text-light">Игр не найдено по запросу "{{ query }}".</h5>
+                {% endif %}
+        </div>
+    </section>
+
+    <section class="categories container mt-5 pt-5">
+        <h2 class="text-light mb-4 text-center">Популярные жанры</h2>
+        <div class="row main-genres">
+            {% for genre in genres|slice:":4" %}
+            <div class="col-md-3" data-aos="fade-right" data-aos-duration="700">
+                <div class="category-card" style="background-image: url({{ genre.photo.url }});">
+                    <a href="{{ genre.get_absolute_url }}" class="category-link"><h3>{{ genre.name }}</h3></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="news">
+        <div class="container main-cards">
+                <h2 class="text-light mb-3">Новости</h2>
+                {% if last_news %}
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for new in last_news|slice:":6" %}
+                    <a class="text-decoration-none" href="{{ new.get_absolute_url }}">
+                        <div class="col">
+                            <div class="card text-light" data-aos="fade-right" data-aos-duration="800">
+                                <img src="{{ new.banner.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ new.title }}</h5>
+                                    <p class="card-text">{{ new.short_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <h5 class="text-light">Новостей не найдено по запросу "{{ query }}".</h5>
+                {% endif %}
+        </div>
+    </section>
+
+{% include 'game_vault/components/_footer.html' %}

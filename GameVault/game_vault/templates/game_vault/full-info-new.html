@@ -1,0 +1,177 @@
+{% include 'game_vault/components/_header.html' %}
+
+
+    <style>
+        .main-info{
+            min-height: 100vh;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.638), rgba(0,0,0,0));
+            display: flex;
+            align-items: center;
+        }
+
+        .main-info h1{
+            font-size: 45px;
+        }
+
+        .main-info p{
+            font-size: 20px;
+            width: 70%;
+        }
+
+        .full-info-bg-image{
+            background-image: radial-gradient(circle at center, transparent 15%, rgba(0,0,0,0.8) 50%), url({{ new.banner.url }});
+            background-size: 200% 100%, cover;
+            background-position-y: top !important;
+            animation: smooth-light-move 8s infinite alternate ease-in-out;
+            background-attachment: fixed;
+        }
+
+        body{
+            padding-bottom: 0;
+        }
+
+        .footer{
+            display:none;
+        }
+    </style>
+
+    <div class="full-info-bg-image">
+
+        <section class="main-info">
+            <div class="main-title text-light">
+                <div class="container title-container">
+                    <h1>{{ new.title }}</h1>
+                    <p>{{ new.short_content }}</p>
+                    <a href="#description-section" class="btn btn-outline-secondary text-light mt-5">Читать</a>
+                    <a href="#comment-section" class="btn btn-outline-secondary text-light mt-5 ms-2">Комментарии</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="full-info p-5" id="description-section">
+            <h1 class="text-light text-center mb-5">Подробно о новости</h1>
+            <div class="container">
+                <div class="flex-left">
+                    <div class="full-desc p-5 text-light mt-2" style="height: 700px;">
+                        <h2 class="mb-3">Полное описание:</h2>
+                        <div class="scroll-bar" style="height: 90%;">
+                            <p>{{ new.content }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <h2 class="text-light mb-4">Горячие новости</h2>
+                    <div class="last-cards">
+                        {% for new in last_news|slice:":4" %}
+                        <a class="text-decoration-none" href="{{ new.get_absolute.url }}">
+                            <div class="card" data-aos="fade-up" data-aos-duration="700" data-aos-offset="100">
+                                <div class="card-body text-light">
+                                    <div class="image-card">
+                                        <img src="{{ new.banner.url }}" alt="" width="100" height="100">
+                                    </div>
+                                    <div class="text-card">
+                                        <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
+                                        <p class="card-text">{{ new.short_content|truncatechars:70 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="full-info p-5" id="comment-section">
+            <h1 class="text-light text-center mb-5">Комментарии</h1>
+            <div class="container">
+                <div class="flex-left">
+                    <div class="full-desc p-5 text-light" style="height: min-content;">
+                        {% if request.user.is_authenticated %}
+                            <h2 class="mb-3">Оставить комментарий:</h2>
+                            <form method="post" action="{% url 'add_comment' 'news' new.id %}">
+                                {% csrf_token %}
+                                <textarea name="content" class="form-control text-light" placeholder="Ваш комментарий..." style="height: 100px; background-color: transparent;"></textarea>
+                                <button type="submit" class="btn border-light text-light mt-3">Отправить</button>
+                            </form>
+                        {% else %}
+                            <p class="text-secondary">
+                                Чтобы оставить комментарий, <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">войдите</a>.
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="commentaries p-5 mt-4 text-light" style="height: min-content;">
+                        <h2 class="mb-4">Комментарии ({{ comments.count }}):</h2>
+                        <div class="comments">
+                            {% for comment in comments %}
+                            <div class="comment p-2">
+                            <div class="comment-left text-center">
+                                {% if comment.user.profile.avatar %}
+                                <img src="{{ comment.photo.url }}" alt="" width="70" height="70">
+                                {% else %}
+                                <img src="https://i.pinimg.com/736x/40/bf/37/40bf37dcd616a81f97e2c00563e7932e.jpg" alt="" width="70" height="70">
+                                {% endif %}
+                            </div>
+                            <div class="comment-center">
+                                <h4>{{ comment.user.username }}</h4>
+                                <p>{{ comment.content }}</p>
+                            </div>
+                            <div class="comment-right d-flex align-items-between">
+                                <p class="text-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</p>
+                                {% if request.user == comment.user %}
+                                <div class="action-btns d-flex justify-content-end me-2">
+                                    <a data-bs-toggle="collapse" href="#collapseExample{{ comment.id }}" role="button" aria-expanded="false" aria-controls="collapseExample{{ comment.id }}" class="text-warning" ><i class="bi bi-pencil"></i></a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            </div>
+
+                            <div class="collapse" id="collapseExample{{ comment.id }}">
+                                <div class="card card-body comment-body">
+                                    <form method="post" action="{% url 'edit_comment' comment.id %}">
+                                        {% csrf_token %}
+                                        <textarea name="content" class="form-control comment-textarea text-light" rows="3" style="background-color: transparent;">{{ comment.content }}</textarea>
+                                        <div class="d-flex gap-2 mt-2">
+                                            <button class="btn btn-outline-warning w-50" type="submit">Сохранить</button>
+                                            <button class="btn btn-outline-danger w-50" type="submit"
+                                                    formaction="{% url 'delete_comment' comment.id %}">Удалить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <h2 class="text-light mb-4">Рекомендуем</h2>
+                    <div class="last-cards">
+                        {% for game in last_games|slice:":4" %}
+                        <a class="text-decoration-none" href="{{ game.get_absolute_url }}">
+                            <div class="card" data-aos="fade-up" data-aos-duration="700">
+                                <div class="card-body text-light">
+                                    <div class="image-card">
+                                        <img src="{{ game.image.url }}" alt="" width="100" height="100">
+                                    </div>
+                                    <div class="text-card">
+                                        <h5 class="card-title">{{ game.title }}</h5>
+                                        <p class="card-text">{{ game.short_description|truncatechars:70 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    
+    </div>
+
+
+{% include 'game_vault/components/_footer.html' %}

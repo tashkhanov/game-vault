@@ -1,0 +1,230 @@
+{% include 'game_vault/components/_header.html' %}
+
+
+    <style>
+        .main-info{
+            min-height: 100vh;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.638), rgba(0,0,0,0));
+            display: flex;
+            align-items: center;
+        }
+
+        .full-info-bg-image{
+            background-image: radial-gradient(circle at center, transparent 15%, rgba(0,0,0,0.8) 50%), url({{ game.image.url }});
+            background-size: 200% 100%, cover;
+            background-position-y: top !important;
+            animation: smooth-light-move 8s infinite alternate ease-in-out;
+            background-attachment: fixed;
+        }
+
+        body{
+            padding-bottom: 0;
+        }
+
+        .footer{
+            display:none;
+        }
+
+        .swiper-slide{
+            width: 700px;
+            height: 400px;
+        }
+
+        .swiper-slide img{
+            height: 400px;
+        }
+
+
+    </style>
+
+    <div class="full-info-bg-image">
+
+        <section class="main-info">
+                <div class="main-title text-light">
+                    <div class="container">
+                    <h1>{{ game.title }}</h1>
+                    <p>{{ game.short_description }}</p>
+                    <a href="#description-section" class="btn btn-outline-secondary text-light mt-5">Подробности</a>
+                    <a href="#comment-section" class="btn btn-outline-secondary text-light mt-5 ms-2">Комментарии</a>
+                    </div>
+            </div>
+        </section>
+
+        <section class="full-info p-5" id="description-section">
+            <h1 class="text-light text-center mb-5">Информация об игре</h1>
+            <div class="container">
+                <div class="flex-left">
+                    <div class="full-desc p-5 text-light" >
+                        <h2 class="mb-3">Описание игры:</h2>
+                        <div class="scroll-bar">
+                            <p>{{ game.description }}</p>
+                        </div>
+                    </div>
+
+                    <div class="game-details">
+                        <div class="game-detail p-5 mt-4 text-light">
+                            <h2 class="mb-3">Детали:</h2>
+                            <p>
+                                <span><strong>Дата выхода: </strong>{{ game.released }}</span>
+                                <span><strong>Жанр: </strong> {{ game.get_genres_names }}</span>
+                                <span><strong>Разработчик: </strong> {{ game.developer }}</span>
+                                <span><strong>Издатель: </strong> {{ game.publisher }}</span>
+                                <span><strong>Платформа: </strong> {{ game.platform }}</span>
+                            </p>
+                        </div>
+
+                        <div class="game-detail p-5 mt-4 text-light">
+                            <h2 class="mb-3">Требования:</h2>
+                            <p>
+                                <span><strong>OC: </strong> {{ system.op_system }}</span>
+                                <span><strong>Процессор: </strong> {{ system.processor }}</span>
+                                <span><strong>Оперативная память: </strong> {{ system.op_memory }}</span>
+                                <span><strong>Видеокарта: </strong> {{ system.video_card }}</span>
+                                <span><strong>Место на диске: </strong> {{ system.hard_memory }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <h2 class="text-light mb-4">Рекомендуем</h2>
+                    <div class="last-cards">
+                        {% for game in same_games|slice:":4" %}
+                        <a class="text-decoration-none" href="{{ game.get_absolute_url }}">
+                            <div class="card" data-aos="fade-up" data-aos-duration="700">
+                                <div class="card-body text-light">
+                                    <div class="image-card">
+                                        <img src="{{ game.image.url }}" alt="" width="100" height="100" loading="lazy">
+                                    </div>
+                                    <div class="text-card">
+                                        <h5 class="card-title">{{ game.title }}</h5>
+                                        <p class="card-text">{{ game.short_description|truncatechars:70 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if game.trailer %}
+        <section class="game-trailer text-center">
+            <h1 class="text-light text-center mb-5">Трейлер игры</h1>
+            <div class="container pb-5">
+                <div class="trailer">
+                    {{ game.trailer|safe }}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if images.exists %}
+        <section class="game_images">
+            <h1 class="text-light text-center mb-5">Изображения игры</h1>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {% for image in images %}
+                        <div class="swiper-slide">
+                            <div class="games-slide-content text-light">
+                                <img src="{{ image.image.url }}" loading="lazy" />
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="full-info p-5" id="comment-section">
+            <h1 class="text-light text-center mb-5">Комментарии</h1>
+            <div class="container">
+                <div class="flex-left">
+                    <div class="full-desc p-5 text-light" style="height: min-content;">
+                        {% if request.user.is_authenticated %}
+                            <h2 class="mb-3">Оставить комментарий:</h2>
+                            <form method="post" action="{% url 'add_comment' 'game' game.id %}">
+                                {% csrf_token %}
+                                <textarea name="content" class="form-control text-light" placeholder="Ваш комментарий..." style="height: 100px; background-color: transparent;"></textarea>
+                                <button type="submit" class="btn border-light text-light mt-3">Отправить</button>
+                            </form>
+                        {% else %}
+                            <p class="text-secondary">
+                                Чтобы оставить комментарий, <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">войдите</a>.
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="commentaries p-5 mt-4 text-light" style="height: min-content;">
+                        <h2 class="mb-4">Комментарии ({{ comments.count }}):</h2>
+                        <div class="comments">
+                            {% for comment in comments %}
+                            <div class="comment p-2">
+                            <div class="comment-left text-center">
+                                {% if comment.user.profile.avatar %}
+                                <img src="{{ comment.user.profile.avatar.url }}" alt="" width="70" height="70">
+                                {% else %}
+                                <img src="https://i.pinimg.com/736x/40/bf/37/40bf37dcd616a81f97e2c00563e7932e.jpg" alt="" width="70" height="70">
+                                {% endif %}
+                            </div>
+                            <div class="comment-center">
+                                <h4>{{ comment.user.username }}</h4>
+                                <p>{{ comment.content }}</p>
+                            </div>
+                            <div class="comment-right d-flex align-items-between">
+                                <p class="text-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</p>
+                                {% if request.user == comment.user %}
+                                <div class="action-btns d-flex justify-content-end me-2">
+                                    <a data-bs-toggle="collapse" href="#collapseExample{{ comment.id }}" role="button" aria-expanded="false" aria-controls="collapseExample{{ comment.id }}" class="text-warning" ><i class="bi bi-pencil"></i></a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            </div>
+
+                            <div class="collapse" id="collapseExample{{ comment.id }}">
+                                <div class="card card-body comment-body">
+                                    <form method="post" action="{% url 'edit_comment' comment.id %}">
+                                        {% csrf_token %}
+                                        <textarea name="content" class="form-control comment-textarea text-light" rows="3" style="background-color: transparent;">{{ comment.content }}</textarea>
+                                        <div class="d-flex gap-2 mt-2">
+                                            <button class="btn btn-outline-warning w-50" type="submit">Сохранить</button>
+                                            <button class="btn btn-outline-danger w-50" type="submit"
+                                                    formaction="{% url 'delete_comment' comment.id %}">Удалить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <h2 class="text-light mb-4">Горячие новости</h2>
+                    <div class="last-cards">
+                        {% for new in news|slice:":4" %}
+                        <a class="text-decoration-none" href="{{ new.get_absolute_url }}">
+                            <div class="card" data-aos="fade-up" data-aos-duration="700">
+                                <div class="card-body text-light">
+                                    <div class="image-card">
+                                        <img src="{{ new.banner.url }}" alt="" width="100" height="100">
+                                    </div>
+                                    <div class="text-card">
+                                        <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
+                                        <p class="card-text">{{ new.short_content|truncatechars:70 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+{% include 'game_vault/components/_footer.html' %}

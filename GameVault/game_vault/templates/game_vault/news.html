@@ -1,0 +1,56 @@
+{% include 'game_vault/components/_header.html' %}
+
+    <section class="news-main">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for new in last_news %}
+                    <div class="swiper-slide">
+                        <a class="text-decoration-none" href="{{ new.get_absolute_url }}">
+                            <div class="news-slide-content text-light">
+                                <img src="{{ new.banner.url }}" />
+                                <div class="news-slide-text p-4">
+                                    <h3>{{ new.title }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="news-content">
+        <div class="container mt-5">
+            <h2 class="text-light mb-3">Новости</h2>
+            <form class="d-flex game-cards-search" role="search" method="get" action="{% url 'news' %}">
+                <input class="form-control me-2 border-secondary text-light" name="q" type="search" placeholder="Поиск" aria-label="Поиск">
+                <button class="btn btn-dark border-secondary" type="submit">Поиск</button>
+            </form>
+
+            <div class="container news-cards">
+                {% if news %}
+                <h2 class="text-light mb-3">Все новости</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for new in news %}
+                <div class="col">
+                    <a href="{{ new.get_absolute_url }}" class="text-white text-decoration-none">
+                        <div class="card text-light" data-aos="fade-up" data-aos-duration="700">
+                            <img src="{{ new.banner.url }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ new.title|truncatechars:70 }}</h5>
+                                <p class="card-text">{{ new.short_content|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+                {% else %}
+                    <p class="text-light">Ничего не найдено по запросу "{{ query }}".</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+{% include 'game_vault/components/_footer.html' %}

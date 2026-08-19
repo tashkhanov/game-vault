@@ -1,0 +1,92 @@
+{% load static %}
+{% include 'game_vault/components/_header.html' %}
+
+{% if messages %}
+<div class="container message-container text-light">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} fade show message text-light d-flex align-items-center" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<section class="games-main">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for game in last_games %}
+            <div class="swiper-slide">
+                <a class="text-decoration-none" href="{{ game.get_absolute_url }}">
+                    <div class="games-slide-content text-light">
+                        <img src="{{ game.image.url }}" />
+                        <div class="games-slide-text p-4">
+                            <h3>{{ game.title }}</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="categories container mt-5 pt-5">
+    <h2 class="text-light mb-4 text-center">Все жанры</h2>
+    <div class="row game_genres">
+        <div class="col-md-3 mt-4" data-aos="fade-up" data-aos-duration="500">
+            <div class="category-card" style="background-image: url({% static 'images/all-genres-2.png' %});">
+                <a href="{% url 'games' %}" class="category-link">
+                    <h3>Все игры</h3>
+                </a>
+            </div>
+        </div>
+        {% for genre in genres %}
+        <div class="col-md-3 mt-4" data-aos="fade-up" data-aos-duration="500">
+            <div class="category-card" style="background-image: url({{ genre.photo.url }});">
+                <a href="{{ genre.get_absolute_url }}" class="category-link">
+                    <h3>{{ genre.name }}</h3>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="game-content">
+    <div class="container mt-5">
+        <h2 class="text-light mb-3">Игры</h2>
+        <form class="d-flex game-cards-search" role="search" method="get" action="{% url 'games' %}">
+            <input class="form-control me-2 border-secondary text-light" name="q" type="search" placeholder="Поиск"
+                aria-label="Поиск">
+            <button class="btn btn-dark border-secondary" type="submit">Поиск</button>
+        </form>
+
+        {% if games %}
+        <div class="container game-cards">
+            <h2 class="text-light mb-3">{% if genre_name %} Жанр: {{ genre_name }} {% else %} Все игры {% endif %}</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for game in games %}
+                <div class="col">
+                    <a href="{{ game.get_absolute_url }}" class="card-link text-white text-decoration-none">
+                        <div class="card text-light" data-aos="fade-up" data-aos-duration="700">
+                            <img src="{{ game.image.url }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ game.title }}</h5>
+                                <!--                            <p class="card-text">{{ game.short_description }}</p>-->
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <p class="text-light">Ничего не найдено по запросу "{{ query }}".</p>
+        {% endif %}
+    </div>
+</section>
+
+
+{% include 'game_vault/components/_footer.html' %}
